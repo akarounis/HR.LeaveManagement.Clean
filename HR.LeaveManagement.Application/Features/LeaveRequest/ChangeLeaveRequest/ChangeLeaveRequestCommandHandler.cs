@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Application.Features.LeaveRequest.ChangeLeaveRequest;
 
-public class ChangeLeaveRequestCommandHandler : IRequestHandler<ChangeLeaveRequestCommand>
+public class ChangeLeaveRequestCommandHandler : IRequestHandler<ChangeLeaveRequestCommand, Unit>
 {
     private readonly ILeaveRequestRepository _leaveRequestRepository;
     private readonly IEmailSender _emailSender;
@@ -73,4 +73,5 @@ public class ChangeLeaveRequestCommandHandler : IRequestHandler<ChangeLeaveReque
 
         return Unit.Value;
     }
+
 }
