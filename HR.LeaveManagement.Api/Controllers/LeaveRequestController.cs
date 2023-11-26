@@ -2,8 +2,8 @@
 using HR.LeaveManagement.Application.Features.LeaveAllocation.Commannds.DeleteLeaveAllocation;
 using HR.LeaveManagement.Application.Features.LeaveAllocation.Commannds.UpdateLeaveAllocation;
 using HR.LeaveManagement.Application.Features.LeaveAllocation.Queries.GetLeaveAllocationDetails;
-using HR.LeaveManagement.Application.Features.LeaveRequest.CancelLeaveRequest;
-using HR.LeaveManagement.Application.Features.LeaveRequest.ChangeLeaveRequest;
+using HR.LeaveManagement.Application.Features.LeaveRequest.Commands.CancelLeaveRequest;
+using HR.LeaveManagement.Application.Features.LeaveRequest.Commands.ChangeLeaveRequest;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Commands.CreateLeaveRequest;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Commands.DeleteLeaveRequest;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Commands.UpdateLeaveRequest;

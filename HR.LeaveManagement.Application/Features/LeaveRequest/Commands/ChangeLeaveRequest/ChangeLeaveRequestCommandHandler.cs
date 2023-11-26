@@ -2,6 +2,7 @@
 using HR.LeaveManagement.Application.Contracts.Logging;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.Exceptions;
+using HR.LeaveManagement.Application.Features.LeaveRequest.Commands.ChangeLeaveRequest;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Commands.UpdateLeaveRequest;
 using HR.LeaveManagement.Application.Models.Email;
 using MediatR;
@@ -11,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HR.LeaveManagement.Application.Features.LeaveRequest.ChangeLeaveRequest;
+namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.ChangeLeaveRequest;
 
 public class ChangeLeaveRequestCommandHandler : IRequestHandler<ChangeLeaveRequestCommand, Unit>
 {
@@ -44,7 +45,7 @@ public class ChangeLeaveRequestCommandHandler : IRequestHandler<ChangeLeaveReque
             throw new BadRequestException("Invalid LeaveRequest", validationResult);
         }
 
-        var requestToChange = await _leaveRequestRepository.GetByIdAsync(request.Id);  
+        var requestToChange = await _leaveRequestRepository.GetByIdAsync(request.Id);
 
         if (requestToChange != null) { throw new NotFoundException(nameof(request), request.Id); }
 

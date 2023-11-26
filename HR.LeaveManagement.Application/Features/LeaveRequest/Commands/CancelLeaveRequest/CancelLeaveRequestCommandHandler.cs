@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HR.LeaveManagement.Application.Features.LeaveRequest.CancelLeaveRequest;
+namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.CancelLeaveRequest;
 
 public class CancelLeaveRequestCommandHandler : IRequestHandler<CancelLeaveRequestCommand, Unit>
 {
@@ -29,7 +29,7 @@ public class CancelLeaveRequestCommandHandler : IRequestHandler<CancelLeaveReque
     {
         var leaveRequest = await _leaveRequestRepository.GetByIdAsync(request.Id);
 
-        if(leaveRequest == null) throw new NotFoundException(nameof(leaveRequest), request.Id);
+        if (leaveRequest == null) throw new NotFoundException(nameof(leaveRequest), request.Id);
 
         leaveRequest.Cancelled = true;
         _leaveRequestRepository.UpdateAsync(leaveRequest);

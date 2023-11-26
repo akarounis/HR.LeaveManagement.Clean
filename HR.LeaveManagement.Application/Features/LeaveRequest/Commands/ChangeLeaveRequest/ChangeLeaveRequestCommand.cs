@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HR.LeaveManagement.Application.Features.LeaveRequest.ChangeLeaveRequest;
+namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.ChangeLeaveRequest;
 
 public record ChangeLeaveRequestCommand : IRequest<Unit>
 {
