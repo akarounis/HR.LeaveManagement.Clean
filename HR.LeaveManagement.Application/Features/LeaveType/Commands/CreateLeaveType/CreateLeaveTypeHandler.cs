@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HR.LeaveManagement.Application.Contracts.Logging;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.Exceptions;
 using MediatR;
@@ -14,13 +15,17 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.CreateLeave
     {
         private readonly IMapper _mapper;
         private readonly ILeaveTypeRepository _leaveTypeRepository;
+        private readonly IAppLogger<CreateLeaveTypeHandler> _logger;
 
-        public CreateLeaveTypeHandler(IMapper mapper, ILeaveTypeRepository leaveTypeRepository)
+        public CreateLeaveTypeHandler(IMapper mapper, 
+            ILeaveTypeRepository leaveTypeRepository, 
+            IAppLogger<CreateLeaveTypeHandler> logger)
         {
             _mapper = mapper;
             _leaveTypeRepository = leaveTypeRepository;
+            _logger = logger;
         }
-        
+
         public async Task<int> Handle(CreateLeaveTypeCommand request, CancellationToken cancellationToken)
         {
             // Validate incoming data
@@ -35,6 +40,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.CreateLeave
 
             // Add to DB
             await _leaveTypeRepository.CreateAsync(leaveTypeToCreate);
+            _logger.LogInformation("Leave type was succesfully added to db");
 
             // Return record id
             return leaveTypeToCreate.Id;

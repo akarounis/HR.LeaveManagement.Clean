@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveRequestList;
 
-public class LeaveRequestListDto
+public class LeaveRequestDto
 {
     public string RequestingEmployeeId { get; set; }
     public LeaveTypeDto LeaveType { get; set; }

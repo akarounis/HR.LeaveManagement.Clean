@@ -22,11 +22,11 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
     private readonly ILeaveTypeRepository _leaveTypeRepository;
     private readonly IEmailSender _emailSender;
     public CreateLeaveRequestCommandHandler(
-        IMapper mapper, 
-        IAppLogger<CreateLeaveRequestCommandHandler> logger, 
+        IMapper mapper,          
         ILeaveRequestRepository leaveRequestRepository, 
         ILeaveTypeRepository leaveTypeRepository,
-        IEmailSender emailSender)
+        IEmailSender emailSender,
+        IAppLogger<CreateLeaveRequestCommandHandler> logger)
     {
         _mapper = mapper;
         _logger = logger;

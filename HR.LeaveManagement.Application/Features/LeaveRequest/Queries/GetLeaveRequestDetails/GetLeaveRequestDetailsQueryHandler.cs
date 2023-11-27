@@ -25,7 +25,7 @@ public class GetLeaveRequestDetailsQueryHandler : IRequestHandler<GetLeaveReques
     public async Task<LeaveRequestDetailsDto> Handle(GetLeaveRequestDetailsQuery request, CancellationToken cancellationToken)
     {
         // Get data from database
-        var leaveRequestDetails = await _leaveRequestRepository.GetLeaveRequestsWithDetails(request.Id);
+        var leaveRequestDetails = await _leaveRequestRepository.GetLeaveRequestWithDetails(request.Id);
 
         // Convert data object to DTO object
         var data = _mapper.Map<LeaveRequestDetailsDto>(leaveRequestDetails);

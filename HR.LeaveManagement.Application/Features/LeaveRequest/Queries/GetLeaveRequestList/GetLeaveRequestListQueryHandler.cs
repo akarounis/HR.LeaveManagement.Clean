@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveRequestList;
 
-public class GetLeaveRequestListQueryHandler : IRequestHandler<GetLeaveRequestListQuery, List<LeaveRequestListDto>>
+public class GetLeaveRequestListQueryHandler : IRequestHandler<GetLeaveRequestListQuery, List<LeaveRequestDto>>
 {
     private readonly ILeaveRequestRepository _leaveRequestRepository;
     private readonly IMapper _mapper;
@@ -24,13 +24,13 @@ public class GetLeaveRequestListQueryHandler : IRequestHandler<GetLeaveRequestLi
         _logger = logger;
     }
 
-    public async Task<List<LeaveRequestListDto>> Handle(GetLeaveRequestListQuery request, CancellationToken cancellationToken)
+    public async Task<List<LeaveRequestDto>> Handle(GetLeaveRequestListQuery request, CancellationToken cancellationToken)
     {
         // Retrieve LeaveRequests
         var leaveRequests = await _leaveRequestRepository.GetLeaveRequestsWithDetails();
 
         // Convert data objects to DTO objects
-        var data = _mapper.Map<List<LeaveRequestListDto>>(leaveRequests);
+        var data = _mapper.Map<List<LeaveRequestDto>>(leaveRequests);
 
         // Return list of DTO objects
         _logger.LogInformation("Leave allocations were retrieved succesfully");

@@ -1,4 +1,5 @@
 ﻿using HR.LeaveManagement.Application.Contracts.Persistence;
+using HR.LeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveType;
 using HR.LeaveManagement.Domain;
 using Moq;
 using System;
@@ -49,6 +50,12 @@ public class MockLeaveTypeRepository
             {
                 leaveTypes.Add(leaveType);
                 return Task.CompletedTask;
+            });
+
+        mockRepo.Setup(r => r.IsLeaveTypeUnique(It.IsAny<string>()))
+            .ReturnsAsync((string name) =>
+            {
+                return leaveTypes.Any(r => r.Name == name) == false;
             });
 
         return mockRepo;

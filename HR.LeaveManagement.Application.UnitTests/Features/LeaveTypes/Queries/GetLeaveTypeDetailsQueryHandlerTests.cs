@@ -19,9 +19,7 @@ public class GetLeaveTypeDetailsQueryHandlerTests
 {
     private readonly Mock<ILeaveTypeRepository> _mockRepo;
     private IMapper _mapper;
-    private Mock<IAppLogger<GetLeaveTypeDetailsQueryHandler>> _mockAppLogger;
-
-    public static IEnumerable<object[]> UserIds = new List<object[]>();
+    private Mock<IAppLogger<GetLeaveTypeDetailsQueryHandler>> _mockAppLogger;    
 
     public GetLeaveTypeDetailsQueryHandlerTests()
     {
@@ -33,24 +31,10 @@ public class GetLeaveTypeDetailsQueryHandlerTests
         });
 
         _mapper = mapperConfig.CreateMapper();
-        _mockAppLogger = new Mock<IAppLogger<GetLeaveTypeDetailsQueryHandler>>();
-
-        InitializeDataAsync();
-                
-    }
-
-    private void InitializeDataAsync()
-    {        
-        // Get each ID from repository to query for LeaveTypes
-        UserIds = _mockRepo.Object.GetAsync().Result
-            .Select(
-                x => new object[] { x.Id })
-            .ToList();
+        _mockAppLogger = new Mock<IAppLogger<GetLeaveTypeDetailsQueryHandler>>();                     
     }
 
     [Fact]
-    //[Theory]
-    //[MemberData(nameof(UserIds))]       
     public async Task GetLeaveTypeDetailsTests()
     {
         // Act

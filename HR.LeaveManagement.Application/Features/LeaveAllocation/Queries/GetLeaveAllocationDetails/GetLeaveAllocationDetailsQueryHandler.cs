@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HR.LeaveManagement.Application.Contracts.Logging;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using MediatR;
 using System;
@@ -13,11 +14,15 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Queries.GetLea
     {
         private readonly IMapper _mapper;
         private readonly ILeaveAllocationRepository _leaveAllocationRepository;
+        private readonly IAppLogger<GetLeaveAllocationDetailsQueryHandler> _logger;
 
-        public GetLeaveAllocationDetailsQueryHandler(IMapper mapper, ILeaveAllocationRepository leaveAllocationRepository)
+        public GetLeaveAllocationDetailsQueryHandler(IMapper mapper, 
+            ILeaveAllocationRepository leaveAllocationRepository, 
+            IAppLogger<GetLeaveAllocationDetailsQueryHandler> logger)
         {
             _mapper = mapper;
             _leaveAllocationRepository = leaveAllocationRepository;
+            _logger = logger;
         }
         public async Task<LeaveAllocationDetailsDto> Handle(GetLeaveAllocationDetailsQuery request, CancellationToken cancellationToken)
         {
@@ -26,6 +31,8 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Queries.GetLea
 
             // Convert data object to DTO object
             var data = _mapper.Map<LeaveAllocationDetailsDto>(leaveAllocationDetails);
+
+            _logger.LogInformation("Leave allocation details succesfully retrieved");
 
             return data;
         }

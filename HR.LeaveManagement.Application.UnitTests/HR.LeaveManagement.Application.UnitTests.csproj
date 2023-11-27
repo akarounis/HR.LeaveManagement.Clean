@@ -29,11 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\LeaveAllocations\Commands\" />
     <Folder Include="Features\LeaveAllocations\Queries\" />
-    <Folder Include="Features\LeaveRequests\Commands\" />
-    <Folder Include="Features\LeaveRequests\Queries\" />
-    <Folder Include="Features\LeaveTypes\Comnmands\" />
   </ItemGroup>
 
 </Project>

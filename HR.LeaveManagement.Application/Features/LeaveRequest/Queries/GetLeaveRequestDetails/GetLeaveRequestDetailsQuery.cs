@@ -9,5 +9,5 @@ namespace HR.LeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveR
 
 public record GetLeaveRequestDetailsQuery() : IRequest<LeaveRequestDetailsDto>
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
 }
