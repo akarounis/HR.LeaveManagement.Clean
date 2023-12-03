@@ -1,0 +1,16 @@
+﻿@page "/leavetypes/create/"
+@inherits CreateLeaveTypeBase
+
+<h3>Create a new Leave Type</h3>
+
+<StatusMessage Error=@Error Message="@Message"/>
+
+<LeaveTypeForm LeaveType="@LeaveType" 
+    FormClass="input-form" 
+    OnValidSubmit="@CreateLeaveTypeFromFormAsync" 
+    SubmitButtonText="Save" />
+
+
+
+
+

@@ -1060,7 +1060,7 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
-                    {
+                    {                        
                         var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
@@ -1351,11 +1351,22 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
                     PrepareRequest(client_, request_, urlBuilder_);
 
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.Relative);
 
                     PrepareRequest(client_, request_, url_);
 
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    HttpResponseMessage response_ = new HttpResponseMessage();   
+
+                    try
+                    {
+                        response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                    
                     var disposeResponse_ = true;
                     try
                     {
@@ -1384,6 +1395,7 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
+                    
                     finally
                     {
                         if (disposeResponse_)
@@ -1622,11 +1634,12 @@ namespace HR.LeaveManagement.BlazorUI.Services.Base
                     try
                     {
                         var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
-                        }
+                        }                        
 
                         ProcessResponse(client_, response_);
 

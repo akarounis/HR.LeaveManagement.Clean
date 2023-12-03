@@ -1,0 +1,35 @@
+﻿@using HR.LeaveManagement.BlazorUI.Models.LeaveTypes;
+
+<EditForm Model="@LeaveType" Class="@FormClass" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <!-- Name field -->
+                <div class="form-group">
+                    <InputText id="Name" class="input" @bind-Value="LeaveType.Name" placeholder="Name" />
+                </div>
+            </tr>
+            <tr>
+                <!-- DefaultDays field -->
+                <div class="form-group">
+                    <InputNumber class="input" id="DefaultDays" @bind-Value="LeaveType.DefaultDays" placeholder="Default number of days" />
+                </div>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Submit button -->
+    <button type="submit">@SubmitButtonText</button>
+
+</EditForm>
+
+@code {
+    [Parameter] public LeaveTypeVM LeaveType { get; set; }
+    [Parameter] public string FormClass { get; set; }
+    [Parameter] public Func<Task> OnValidSubmit { get; set; }
+    [Parameter] public string SubmitButtonText { get; set; } = "Submit";
+    
+}

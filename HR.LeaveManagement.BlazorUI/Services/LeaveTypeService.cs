@@ -34,7 +34,7 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     {
         try
         {
-            await _client.LeaveRequestDELETEAsync(id);
+            await _client.LeaveTypeDELETEAsync(id);
             return new Response<Guid>()
             {
                 Success = true
@@ -61,7 +61,7 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     }
 
     public async Task<Response<Guid>> UpdateLeaveType(int id, LeaveTypeVM leaveType)
-    {
+   {
         try
         {
             var updatedLeaveTypeCommand = _mapper.Map<UpdateLeaveTypeCommand>(leaveType);

@@ -39,6 +39,11 @@ public class HrDatabaseContext : DbContext
             {
                 entry.Entity.DateCreated = DateTime.UtcNow; 
             }
+
+            if(entry.State == EntityState.Modified)
+            {
+
+            }
         }
         
         return base.SaveChangesAsync(cancellationToken);

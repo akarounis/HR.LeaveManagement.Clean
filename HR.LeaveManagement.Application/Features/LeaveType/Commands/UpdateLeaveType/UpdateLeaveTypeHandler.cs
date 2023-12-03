@@ -29,7 +29,7 @@ public class UpdateLeaveTypeHandler : IRequestHandler<UpdateLeaveTypeCommand, Un
     {
         // Validate data
         var validator = new UpdateLeaveTypeCommandValidator(_typeRepository);
-        var validationResult = validator.Validate(request);
+        var validationResult = await validator.ValidateAsync(request);
 
         if (validationResult.Errors.Any())
         {

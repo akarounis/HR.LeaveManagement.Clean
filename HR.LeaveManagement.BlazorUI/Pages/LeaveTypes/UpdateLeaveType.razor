@@ -1,0 +1,12 @@
+﻿@page "/leavetypes/edit/{Id}"
+
+<h3>Edit Leave Type</h3>
+
+<StatusMessage Error=@Error Message="@Message" />
+
+<LeaveTypeForm LeaveType="@LeaveType"
+               FormClass="input-form"
+               OnValidSubmit="@UpdateLeaveTypeFromFormAsync"
+               SubmitButtonText="Update" />
+
+

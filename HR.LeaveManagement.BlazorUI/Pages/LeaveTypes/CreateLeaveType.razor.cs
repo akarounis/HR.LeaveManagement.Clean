@@ -18,57 +18,32 @@ using HR.LeaveManagement.BlazorUI.Models.LeaveTypes;
 
 namespace HR.LeaveManagement.BlazorUI.Pages.LeaveTypes;
 
-public partial class Index
+public class CreateLeaveTypeBase : ComponentBase
 {
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
     [Inject]
-    public ILeaveTypeService LeaveTypeService { get; set; } 
+    public ILeaveTypeService LeaveTypeService { get; set; }
 
-    public List<LeaveTypeVM> LeaveTypes { get; set; }
+    protected LeaveTypeVM LeaveType { get; set; } = new LeaveTypeVM();
 
     public string Message { get; set; } = string.Empty;
     public bool Error { get; set; } = false;
 
-    protected void CreateLeaveType()
+    protected async Task CreateLeaveTypeFromFormAsync()
     {
-        NavigationManager.NavigateTo("/leavetypes/create/");
-    }
+        var result = await LeaveTypeService.CreateLeaveType(LeaveType);
 
-    protected void AllocateLeaveType(int id)
-    {
-        // Use Leave Alloction Service here
-    }
-
-    protected void EditLeaveType(int id)
-    {
-        NavigationManager.NavigateTo($"/leavetypes/edit/{id}");
-    }
-
-    protected void DetailsLeaveType(int id)
-    {
-        NavigationManager.NavigateTo($"leavetypes/details/{id}");
-    }
-
-    protected async Task DeleteLeaveType(int id)
-    {        
-        var response = await LeaveTypeService.DeleteLeaveType(id);
-        if (response.Success)
+        if (result.Success)
         {
+            Message = $"Leave Type {LeaveType.Name} has been succesfully added";
             Error = false;
-            Message = "Leave Type succesdfully deleted";
-            StateHasChanged();
         }
         else
         {
-            Message = response.Message;
+            Message = result.Message;
             Error = true;
         }
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        LeaveTypes = await LeaveTypeService.GetLeaveTypes();
     }
 }
