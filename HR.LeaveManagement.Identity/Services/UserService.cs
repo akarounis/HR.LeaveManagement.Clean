@@ -12,7 +12,7 @@ using HR.LeaveManagement.Identity.Models;
 
 namespace HR.LeaveManagement.Identity.Services;
 
-public class UserService
+public class UserService : IUserService
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
