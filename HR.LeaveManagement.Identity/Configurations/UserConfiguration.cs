@@ -26,7 +26,9 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
                  UserName = "admin@localhost.com",
                  NormalizedUserName = "ADMIN@LOCALHOST.COM",
                  PasswordHash = hasher.HashPassword(null, "P@ssword1"),
-                 EmailConfirmed = true
+                 EmailConfirmed = true,
+                 //AccessFailedCount =0
+
              },
              new ApplicationUser
              {
@@ -38,7 +40,8 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
                  UserName = "user@localhost.com",
                  NormalizedUserName = "USER@LOCALHOST.COM",
                  PasswordHash = hasher.HashPassword(null, "P@ssword1"),
-                 EmailConfirmed = true
+                 EmailConfirmed = true,
+                 //AccessFailedCount = 0
              }
         );
     }

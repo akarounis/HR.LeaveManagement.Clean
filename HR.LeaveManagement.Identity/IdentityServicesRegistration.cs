@@ -3,7 +3,7 @@ using HR.LeaveManagement.Application.Models.Identity;
 using HR.LeaveManagement.Identity.DbContext;
 using HR.LeaveManagement.Identity.Models;
 using HR.LeaveManagement.Identity.Services;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Identity.Configurations;
 
-public class RoleConfiguration : IEntityTypeConfiguration<ApplicationUser>
+public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
 {
-    public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+    public void Configure(EntityTypeBuilder<IdentityRole> builder)
     {
         builder.HasData(
             new IdentityRole
