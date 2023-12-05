@@ -35,6 +35,10 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
         }
 
         var claims = await GetClaims();
+
+        user = new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
+
+        return new AuthenticationState(user);
     }
 
     public async Task LoggedIn()

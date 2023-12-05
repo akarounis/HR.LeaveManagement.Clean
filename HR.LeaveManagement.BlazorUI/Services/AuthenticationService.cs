@@ -8,12 +8,12 @@ namespace HR.LeaveManagement.BlazorUI.Services
 {
     public class AuthenticationService : BaseHttpService, IAuthenticationService
     {
-        private readonly AuthenticationStateProvider _authenticationStateProvider;
+        private readonly AuthenticationStateProvider _authenticationStateProvider;        
         public AuthenticationService(IClient client, 
             ILocalStorageService localStorageService, 
             AuthenticationStateProvider authenticationStateProvider) : base(client, localStorageService)
         {
-            _authenticationStateProvider = authenticationStateProvider;
+            _authenticationStateProvider = authenticationStateProvider;            
         }
 
         public async Task<bool> AuthenticateAsync(string email, string password)
