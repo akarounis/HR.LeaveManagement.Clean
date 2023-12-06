@@ -12,7 +12,6 @@
     <div class="alert alert-danger">
         @Message
     </div>
-
 }
 
 
@@ -51,18 +50,20 @@ else
                         @leaveType.DefaultDays
                     </td>
                     <td>
-                        <button @onclick=@(() => AllocateLeaveType(leaveType.Id))
-                            class="btn btn-dark">
-                            Allocate Leave
-                        </button>
-                        <button @onclick="@(() => EditLeaveType(leaveType.Id))"
-                                class="btn btn-warning">
+                        <AuthorizeView Roles="Administrator">
+                            <button @onclick=@(() => AllocateLeaveType(leaveType.Id))
+                                    class="btn btn-dark">
+                                Allocate Leave
+                            </button>
+                            <button @onclick="@(() => EditLeaveType(leaveType.Id))"
+                                    class="btn btn-warning">
                                 Edit
-                        </button>
-                        <button @onclick="@(() => DeleteLeaveType(leaveType.Id))"
-                                class="btn btn-danger">
+                            </button>
+                            <button @onclick="@(() => DeleteLeaveType(leaveType.Id))"
+                                    class="btn btn-danger">
                                 Delete
-                        </button>
+                            </button>
+                        </AuthorizeView>
                     </td>
                 </tr>
             }

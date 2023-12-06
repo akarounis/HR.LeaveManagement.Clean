@@ -24,7 +24,10 @@ public partial class Index
     public NavigationManager NavigationManager { get; set; }
 
     [Inject]
-    public ILeaveTypeService LeaveTypeService { get; set; } 
+    public ILeaveTypeService LeaveTypeService { get; set; }
+
+    [Inject]
+    public ILeaveAllocationService LeaveAllocationService { get; set; }
 
     public List<LeaveTypeVM> LeaveTypes { get; set; }
 
