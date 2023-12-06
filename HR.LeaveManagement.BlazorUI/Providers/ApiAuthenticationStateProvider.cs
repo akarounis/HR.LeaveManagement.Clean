@@ -8,12 +8,12 @@ namespace HR.LeaveManagement.BlazorUI.Providers;
 public class ApiAuthenticationStateProvider : AuthenticationStateProvider
 {
     private readonly ILocalStorageService _localStorageService;
-    private readonly JwtSecurityTokenHandler jwtSecurityTokenHandler;
+    private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
 
-    public ApiAuthenticationStateProvider(ILocalStorageService localStorageService, JwtSecurityTokenHandler jwtSecurityTokenHandler)
+    public ApiAuthenticationStateProvider(ILocalStorageService localStorageService)
     {
         _localStorageService = localStorageService;
-        this.jwtSecurityTokenHandler = jwtSecurityTokenHandler;
+        _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
     }
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -26,7 +26,7 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
         }
 
         var savedToken = await _localStorageService.GetItemAsync<string>("token");
-        var tokentContent = jwtSecurityTokenHandler.ReadJwtToken(savedToken);
+        var tokentContent = _jwtSecurityTokenHandler.ReadJwtToken(savedToken);
 
         if(tokentContent.ValidTo < DateTime.Now) 
         {
@@ -60,7 +60,7 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
     private async Task<List<Claim>> GetClaims()
     {
         var savedToken = await _localStorageService.GetItemAsync<string>("token");
-        var tokenContent = jwtSecurityTokenHandler.ReadJwtToken(savedToken);
+        var tokenContent = _jwtSecurityTokenHandler.ReadJwtToken(savedToken);
         var claims = tokenContent.Claims.ToList();
         claims.Add(new Claim(ClaimTypes.Name, tokenContent.Subject));
         return claims;
