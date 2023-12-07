@@ -47,11 +47,11 @@ public class LeaveAllocationRepository : GenericRepository<LeaveAllocation>, ILe
                 .FirstOrDefaultAsync(q => q.Id == id);
     }
 
-    public async Task<IReadOnlyList<LeaveAllocation>> GetUserAllocations(string userId, int leaveTypeId)
+    public async Task<LeaveAllocation> GetUserAllocations(string userId, int leaveTypeId)
     {
         return await _dbContext.LeaveAllocations
-                .Where(q => q.EmployeeId == userId
-                        && q.LeaveTypeId == leaveTypeId)                
-                .ToListAsync();
+                .FirstOrDefaultAsync(q => q.EmployeeId == userId
+                        && q.LeaveTypeId == leaveTypeId);
+                
     }
 }

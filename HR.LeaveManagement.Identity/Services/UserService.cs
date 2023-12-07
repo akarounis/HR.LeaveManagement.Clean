@@ -9,17 +9,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using HR.LeaveManagement.Identity.Models;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace HR.LeaveManagement.Identity.Services;
 
 public class UserService : IUserService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public UserService(UserManager<ApplicationUser> userManager)
+    public UserService(UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
+        this._httpContextAccessor = httpContextAccessor;
     }
+
+    public string UserId { get => _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier).Value; }
 
     public async Task<Employee> GetEmployee(string userId)
     {

@@ -17,8 +17,7 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     public async Task<Response<Guid>> CreateLeaveType(LeaveTypeVM leaveType)
     {
         try
-        {
-            await AddBearerToken();
+        {            
             var createdLeaveTypeCommand = _mapper.Map<CreateLeaveTypeCommand>(leaveType);
             await _client.LeaveTypePOSTAsync(createdLeaveTypeCommand);
             return new Response<Guid>()
@@ -35,8 +34,7 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     public async Task<Response<Guid>> DeleteLeaveType(int id)
     {
         try
-        {
-            await AddBearerToken();
+        {           
             await _client.LeaveTypeDELETEAsync(id);
             return new Response<Guid>()
             {
@@ -50,16 +48,14 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     }
 
     public async Task<LeaveTypeVM> GetLeaveTypeDetails(int id)
-    {
-        await AddBearerToken();
+    {        
         var leaveType = await _client.LeaveTypeGETAsync(id);
         var data = _mapper.Map<LeaveTypeVM>(leaveType);
         return data;
     }
 
     public async Task<List<LeaveTypeVM>> GetLeaveTypes()
-    {
-        await AddBearerToken();
+    {        
         var leaveTypes = await _client.LeaveTypeAllAsync();
         var data = _mapper.Map<List<LeaveTypeVM>>(leaveTypes);
         return data;
@@ -68,8 +64,7 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     public async Task<Response<Guid>> UpdateLeaveType(int id, LeaveTypeVM leaveType)
    {
         try
-        {
-            await AddBearerToken();
+        {     
             var updatedLeaveTypeCommand = _mapper.Map<UpdateLeaveTypeCommand>(leaveType);
             await _client.LeaveTypePUTAsync(id.ToString(), updatedLeaveTypeCommand);
             return new Response<Guid>()
