@@ -17,13 +17,18 @@ namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.ChangeLe
 public class ChangeLeaveRequestCommandHandler : IRequestHandler<ChangeLeaveRequestCommand, Unit>
 {
     private readonly ILeaveRequestRepository _leaveRequestRepository;
+    private readonly ILeaveAllocationRepository _leaveAllocationRepository;
     private readonly IEmailSender _emailSender;
     private readonly IAppLogger<ChangeLeaveRequestCommandHandler> _logger;
-    public ChangeLeaveRequestCommandHandler(ILeaveRequestRepository leaveRequestRepository, IEmailSender emailSender, IAppLogger<ChangeLeaveRequestCommandHandler> logger)
+    public ChangeLeaveRequestCommandHandler(ILeaveRequestRepository leaveRequestRepository,
+        IEmailSender emailSender, 
+        IAppLogger<ChangeLeaveRequestCommandHandler> logger,
+        ILeaveAllocationRepository leaveAllocationRepository)
     {
         _leaveRequestRepository = leaveRequestRepository;
         _emailSender = emailSender;
         _logger = logger;
+        _leaveAllocationRepository = leaveAllocationRepository;
     }
 
     public async Task<Unit> Handle(ChangeLeaveRequestCommand request, CancellationToken cancellationToken)
@@ -52,7 +57,16 @@ public class ChangeLeaveRequestCommandHandler : IRequestHandler<ChangeLeaveReque
         requestToChange.Approved = request.Approved;
         await _leaveRequestRepository.UpdateAsync(requestToChange);
 
-        // if requestg is approved, get and update the employee's allocations
+        // if request is approved, get and update the employee's allocations
+        if (request.Approved)
+        {
+            int daysRequested = (int)(requestToChange.EndDate - requestToChange.StartDate).TotalDays;
+            var allocation = await _leaveAllocationRepository.GetUserAllocations
+                (requestToChange.RequestingEmployeeId, requestToChange.LeaveTypeId);
+            allocation.NumberOfDays -= daysRequested;
+
+            await _leaveAllocationRepository.UpdateAsync(allocation);
+        }
 
         try
         {

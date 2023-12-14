@@ -15,6 +15,7 @@ using HR.LeaveManagement.BlazorUI;
 using HR.LeaveManagement.BlazorUI.Shared;
 using HR.LeaveManagement.BlazorUI.Contracts;
 using HR.LeaveManagement.BlazorUI.Models.LeaveTypes;
+using Blazored.Toast.Services;
 
 namespace HR.LeaveManagement.BlazorUI.Pages.LeaveTypes;
 
@@ -31,7 +32,10 @@ public partial class Index
 
     public List<LeaveTypeVM> LeaveTypes { get; set; }
 
+    public IToastService toastService { get; set; }
+
     public string Message { get; set; } = string.Empty;
+
     public bool Error { get; set; } = false;
 
     protected void CreateLeaveType()
@@ -61,6 +65,7 @@ public partial class Index
         {
             Error = false;
             Message = "Leave Type succesdfully deleted";
+            toastService.ShowSuccess(Message);
             StateHasChanged();
         }
         else

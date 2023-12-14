@@ -16,13 +16,15 @@ public class CancelLeaveRequestCommandHandler : IRequestHandler<CancelLeaveReque
 {
 
     private readonly ILeaveRequestRepository _leaveRequestRepository;
+    private readonly ILeaveAllocationRepository _leaveAllocationRepository;
     private readonly IEmailSender _emailSender;
     private readonly IAppLogger<CancelLeaveRequestCommandHandler> _logger;
-    public CancelLeaveRequestCommandHandler(IEmailSender emailSender, ILeaveRequestRepository leaveRequestRepository, IAppLogger<CancelLeaveRequestCommandHandler> logger)
+    public CancelLeaveRequestCommandHandler(IEmailSender emailSender, ILeaveRequestRepository leaveRequestRepository, IAppLogger<CancelLeaveRequestCommandHandler> logger, ILeaveAllocationRepository leaveAllocationRepository)
     {
         _emailSender = emailSender;
         _leaveRequestRepository = leaveRequestRepository;
         _logger = logger;
+        _leaveAllocationRepository = leaveAllocationRepository;
     }
 
     public async Task<Unit> Handle(CancelLeaveRequestCommand request, CancellationToken cancellationToken)
@@ -32,9 +34,18 @@ public class CancelLeaveRequestCommandHandler : IRequestHandler<CancelLeaveReque
         if (leaveRequest == null) throw new NotFoundException(nameof(leaveRequest), request.Id);
 
         leaveRequest.Cancelled = true;
-        _leaveRequestRepository.UpdateAsync(leaveRequest);
+        await _leaveRequestRepository.UpdateAsync(leaveRequest);
 
         // if already approved, re-evaluate the employee's allocations for the leavetype
+        if(leaveRequest.Approved == true)
+        {
+            int daysRequested = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
+            var allocation = await _leaveAllocationRepository.GetUserAllocations
+                (leaveRequest.RequestingEmployeeId, leaveRequest.LeaveTypeId);
+            allocation.NumberOfDays += daysRequested;
+
+            await _leaveAllocationRepository.UpdateAsync(allocation);
+        }
 
         try
         {

@@ -7,4 +7,7 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveRequestList;
 
-public record GetLeaveRequestListQuery : IRequest<List<LeaveRequestDto>> { }
+public record GetLeaveRequestListQuery : IRequest<List<LeaveRequestDto>> 
+{
+    public bool IsLoggedInUser { get; set; }
+}

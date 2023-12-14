@@ -15,28 +15,29 @@ using HR.LeaveManagement.BlazorUI;
 using HR.LeaveManagement.BlazorUI.Shared;
 using HR.LeaveManagement.BlazorUI.Contracts;
 using HR.LeaveManagement.BlazorUI.Models.LeaveTypes;
+using Blazored.Toast.Services;
 
 namespace HR.LeaveManagement.BlazorUI.Pages.LeaveTypes;
 
 public class CreateLeaveTypeBase : ComponentBase
 {
     [Inject]
-    public NavigationManager NavigationManager { get; set; }
-
+    NavigationManager NavigationManager { get; set; }
     [Inject]
-    public ILeaveTypeService LeaveTypeService { get; set; }
-
+    ILeaveTypeService leaveTypeService { get; set; }
     protected LeaveTypeVM LeaveType { get; set; } = new LeaveTypeVM();
+    IToastService toastService { get; set; }
 
     public string Message { get; set; } = string.Empty;
     public bool Error { get; set; } = false;
 
     protected async Task CreateLeaveTypeFromFormAsync()
     {
-        var result = await LeaveTypeService.CreateLeaveType(LeaveType);
+        var result = await leaveTypeService.CreateLeaveType(LeaveType);
 
         if (result.Success)
         {
+            toastService.ShowSuccess("Leave Type creeated succesfully");
             Message = $"Leave Type {LeaveType.Name} has been succesfully added";
             Error = false;
         }
