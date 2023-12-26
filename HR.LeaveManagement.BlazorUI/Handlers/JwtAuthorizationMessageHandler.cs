@@ -1,7 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using System.Reflection.Metadata.Ecma335;
 
-namespace HR.LeaveManagement.BlazorUI.Models.Handlers;
+namespace HR.LeaveManagement.BlazorUI.Handlers;
 
 public class JwtAuthorizationMessageHandler : DelegatingHandler
 {
@@ -15,7 +15,7 @@ public class JwtAuthorizationMessageHandler : DelegatingHandler
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         var token = await _localStorageService.GetItemAsync<string>("token");
-        if(!string.IsNullOrEmpty(token))
+        if (!string.IsNullOrEmpty(token))
         {
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
         }

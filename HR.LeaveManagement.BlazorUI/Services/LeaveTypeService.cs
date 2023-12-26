@@ -55,8 +55,9 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     }
 
     public async Task<List<LeaveTypeVM>> GetLeaveTypes()
-    {        
-        var leaveTypes = await _client.LeaveTypeAllAsync();
+    {     
+        var leaveTypes = await _client.LeaveTypeAllAsync();     
+        
         var data = _mapper.Map<List<LeaveTypeVM>>(leaveTypes);
         return data;
     }

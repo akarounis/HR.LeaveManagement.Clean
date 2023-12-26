@@ -35,7 +35,7 @@ public class MappingConfig : Profile
         CreateMap<UpdateLeaveAllocationCommand, LeaveAllocationVM>().ReverseMap();
 
 
-        CreateMap<EmployeeVM, Employee>.ReverseMap(); // Will appear when I update the Service Client 
+        CreateMap<Employee, EmployeeVM>().ReverseMap();
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Castle.Components.DictionaryAdapter.Xml;
+using HR.LeaveManagement.Application.Contracts.Identity;
 using HR.LeaveManagement.Application.Contracts.Logging;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Queries.GetLeaveRequestDetails;
@@ -22,6 +23,7 @@ public class GetLeaveRequestsQueryHandlerTests
     private readonly Mock<ILeaveRequestRepository> _mockRepo;
     private IMapper _mapper;
     private Mock<IAppLogger<GetLeaveRequestListQueryHandler>> _mockAppLogger;
+    private Mock<IUserService> _mockUserService;
 
     public GetLeaveRequestsQueryHandlerTests()
     {
@@ -44,7 +46,8 @@ public class GetLeaveRequestsQueryHandlerTests
         // Act
         var handler = new GetLeaveRequestListQueryHandler(_mockRepo.Object,
             _mapper,
-            _mockAppLogger.Object);
+            _mockAppLogger.Object,
+            _mockUserService.Object);
 
         var result = await handler.Handle(new GetLeaveRequestListQuery(), CancellationToken.None);
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HR.LeaveManagement.Application.Contracts.Email;
+using HR.LeaveManagement.Application.Contracts.Identity;
 using HR.LeaveManagement.Application.Contracts.Logging;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.Exceptions;
@@ -20,9 +21,11 @@ public class CreateLeaveRequestCommandHandlerTests
 {
     private readonly Mock<ILeaveRequestRepository> _mockLeaveRequestRepo;
     private readonly Mock<ILeaveTypeRepository> _mockLeaveTypeRepo;
+    private readonly Mock<ILeaveAllocationRepository> _mockLeaveAllocationRepo; 
 
     private IMapper _mapper;
     private Mock<IAppLogger<CreateLeaveRequestCommandHandler>> _mockAppLogger;
+    private Mock<IUserService> _mockUserService;
     private readonly Mock<IEmailSender> _mockEmailSender;
 
     public CreateLeaveRequestCommandHandlerTests()
@@ -48,9 +51,11 @@ public class CreateLeaveRequestCommandHandlerTests
         // Act       
         var handler = new CreateLeaveRequestCommandHandler(_mapper,
             _mockLeaveRequestRepo.Object,
-            _mockLeaveTypeRepo.Object,
+            _mockLeaveTypeRepo.Object,            
             _mockEmailSender.Object,
-            _mockAppLogger.Object);
+            _mockAppLogger.Object,
+            _mockUserService.Object,
+            _mockLeaveAllocationRepo.Object);
 
         var command = new CreateLeaveRequestCommand
         {

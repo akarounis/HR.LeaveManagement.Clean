@@ -2,7 +2,7 @@ using Blazored.LocalStorage;
 using Blazored.Toast;
 using HR.LeaveManagement.BlazorUI;
 using HR.LeaveManagement.BlazorUI.Contracts;
-using HR.LeaveManagement.BlazorUI.Models.Handlers;
+using HR.LeaveManagement.BlazorUI.Handlers;
 using HR.LeaveManagement.BlazorUI.Providers;
 using HR.LeaveManagement.BlazorUI.Services;
 using HR.LeaveManagement.BlazorUI.Services.Base;

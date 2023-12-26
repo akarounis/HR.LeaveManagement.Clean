@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace HR.LeaveManagement.Identity.DbContext;
 
-public class HrLeaveManagementIdentityDbContext : IdentityDbContext<ApplicationUser>
+public class HrIdentityDbContext : IdentityDbContext<ApplicationUser>
 {
-    public HrLeaveManagementIdentityDbContext(
-        DbContextOptions<HrLeaveManagementIdentityDbContext> options) 
+    public HrIdentityDbContext(
+        DbContextOptions<HrIdentityDbContext> options) 
         : base(options)
     {
     }
@@ -24,6 +24,6 @@ public class HrLeaveManagementIdentityDbContext : IdentityDbContext<ApplicationU
         base.OnModelCreating(builder);
 
         builder.ApplyConfigurationsFromAssembly(
-            typeof(HrLeaveManagementIdentityDbContext).Assembly);
+            typeof(HrIdentityDbContext).Assembly);
     }
 }

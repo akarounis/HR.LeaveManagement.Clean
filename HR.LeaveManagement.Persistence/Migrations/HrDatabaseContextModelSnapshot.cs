@@ -17,7 +17,7 @@ namespace HR.LeaveManagement.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -29,6 +29,9 @@ namespace HR.LeaveManagement.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
@@ -42,6 +45,9 @@ namespace HR.LeaveManagement.Persistence.Migrations
 
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberOfDays")
                         .HasColumnType("int");
@@ -70,20 +76,26 @@ namespace HR.LeaveManagement.Persistence.Migrations
                     b.Property<bool>("Cancelled")
                         .HasColumnType("bit");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DateRequested")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DateRequested")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestComments")
                         .HasColumnType("nvarchar(max)");
@@ -110,6 +122,9 @@ namespace HR.LeaveManagement.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -118,6 +133,9 @@ namespace HR.LeaveManagement.Persistence.Migrations
 
                     b.Property<int>("DefaultDays")
                         .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -132,9 +150,30 @@ namespace HR.LeaveManagement.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 10, 15, 18, 18, 50, 16, DateTimeKind.Utc).AddTicks(2961),
+                            DateCreated = new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3866),
                             DefaultDays = 10,
                             Name = "Vacation"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateCreated = new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3870),
+                            DefaultDays = 2,
+                            Name = "Sick"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateCreated = new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3871),
+                            DefaultDays = 1,
+                            Name = "Elections"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateCreated = new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3872),
+                            DefaultDays = 1,
+                            Name = "Training"
                         });
                 });
 

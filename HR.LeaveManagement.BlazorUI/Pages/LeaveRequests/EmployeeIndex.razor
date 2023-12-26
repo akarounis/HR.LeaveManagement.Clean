@@ -72,7 +72,7 @@
                     }
                 </td>
                 <td>
-                    @if (!item.Cancelled && item.StartDate > DateTime.Now)
+                    @if (!item.Cancelled && item.StartDate > DateTime.UtcNow)
                     {
                         <button @onclick="@(() => CancelRequestAsync(item.Id))" class="btn btn-danger">
                             <i class="fa fa-file"></i>Cancel Request

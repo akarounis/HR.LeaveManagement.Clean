@@ -25,11 +25,11 @@ namespace HR.LeaveManagement.Identity
         {
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
-            services.AddDbContext<HrLeaveManagementIdentityDbContext>(options =>
+            services.AddDbContext<HrIdentityDbContext>(options =>
                options.UseSqlServer(configuration.GetConnectionString("HrDatabaseConnectionString")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<HrLeaveManagementIdentityDbContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<HrIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUserService, UserService>();

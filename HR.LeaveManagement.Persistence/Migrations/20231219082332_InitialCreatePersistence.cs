@@ -1,12 +1,14 @@
-﻿ using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace HR.LeaveManagement.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreatePersistence : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +22,9 @@ namespace HR.LeaveManagement.Persistence.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DefaultDays = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,7 +42,9 @@ namespace HR.LeaveManagement.Persistence.Migrations
                     Period = table.Column<int>(type: "int", nullable: false),
                     EmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,13 +66,15 @@ namespace HR.LeaveManagement.Persistence.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LeaveTypeId = table.Column<int>(type: "int", nullable: false),
-                    DateRequested = table.Column<int>(type: "int", nullable: false),
+                    DateRequested = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RequestComments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Approved = table.Column<bool>(type: "bit", nullable: true),
                     Cancelled = table.Column<bool>(type: "bit", nullable: false),
                     RequestingEmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,8 +89,14 @@ namespace HR.LeaveManagement.Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "LeaveTypes",
-                columns: new[] { "Id", "DateCreated", "DateModified", "DefaultDays", "Name" },
-                values: new object[] { 1, new DateTime(2023, 10, 15, 18, 18, 50, 16, DateTimeKind.Utc).AddTicks(2961), null, 10, "Vacation" });
+                columns: new[] { "Id", "CreatedBy", "DateCreated", "DateModified", "DefaultDays", "ModifiedBy", "Name" },
+                values: new object[,]
+                {
+                    { 1, null, new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3866), null, 10, null, "Vacation" },
+                    { 2, null, new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3870), null, 2, null, "Sick" },
+                    { 3, null, new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3871), null, 1, null, "Elections" },
+                    { 4, null, new DateTime(2023, 12, 19, 8, 23, 32, 56, DateTimeKind.Utc).AddTicks(3872), null, 1, null, "Training" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LeaveAllocations_LeaveTypeId",

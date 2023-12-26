@@ -21,6 +21,27 @@ public class LeaveTypeConfiguration : IEntityTypeConfiguration<LeaveType>
                 Name = "Vacation",
                 DefaultDays = 10,
                 DateCreated = DateTime.UtcNow
+            },
+            new LeaveType
+            {
+                Id= 2,
+                Name = "Sick",
+                DefaultDays = 2,
+                DateCreated = DateTime.UtcNow
+            },
+            new LeaveType
+            {
+                Id = 3,
+                Name = "Elections",
+                DefaultDays = 1,
+                DateCreated = DateTime.UtcNow
+            },
+            new LeaveType
+            {
+                Id = 4,
+                Name = "Training",
+                DefaultDays = 1,
+                DateCreated = DateTime.UtcNow
             }
         );
 
